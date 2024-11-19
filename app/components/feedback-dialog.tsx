@@ -23,8 +23,6 @@ import {
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { createClient } from '@/utils/supabase/client';
-import { useRouter } from 'next/navigation';
 
 const feedbackFormSchema = z.object({
   feedback: z
@@ -38,8 +36,6 @@ type FeedbackFormValues = z.infer<typeof feedbackFormSchema>;
 export function FeedbackDialog() {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
-  const router = useRouter();
-  const supabase = createClient();
 
   const form = useForm<FeedbackFormValues>({
     resolver: zodResolver(feedbackFormSchema),

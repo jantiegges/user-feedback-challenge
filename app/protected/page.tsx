@@ -1,6 +1,4 @@
-import FetchDataSteps from '@/components/tutorial/fetch-data-steps';
 import { createClient } from '@/utils/supabase/server';
-import { InfoIcon } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import { FeedbackDialog } from '@/app/components/feedback-dialog';
 
@@ -16,8 +14,8 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-12 h-full">
-      <div className="w-full h-full">
+    <div className="flex-1 flex flex-col items-center justify-center">
+      <div className="w-full h-full flex items-center justify-center">
         <FeedbackDialog />
       </div>
     </div>

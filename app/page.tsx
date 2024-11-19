@@ -1,13 +1,9 @@
 import Hero from '@/components/hero';
-import ConnectSupabaseSteps from '@/components/tutorial/connect-supabase-steps';
-import SignUpUserSteps from '@/components/tutorial/sign-up-user-steps';
-import { hasEnvVars } from '@/utils/supabase/check-env-vars';
-import { FeedbackDialog } from '@/app/components/feedback-dialog';
 
 export default async function Index() {
   return (
-    <>
+    <div className="flex-1 flex flex-col items-center justify-center">
       <Hero />
-    </>
+    </div>
   );
 }
