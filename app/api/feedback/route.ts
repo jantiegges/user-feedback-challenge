@@ -1,41 +1,26 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
-import { z } from 'zod';
-import { createClient } from "@/utils/supabase/server";
-import OpenAI from 'openai';
-import console from 'console';
-
-// Schema for feedback validation
-const feedbackSchema = z.object({
-  feedback: z.string().min(1, 'Feedback cannot be empty'),
-});
-
-// Schema for LLM classification
-const classificationSchema = z.object({
-  title: z.string(),
-  category: z.enum([
-    'bug',
-    'feature_request',
-    'improvement',
-    'question',
-  ]),
-  priority: z.enum(['low', 'medium', 'high']),
-});
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-
+import { createClient } from '@/utils/supabase/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
 
-    // Parse and validate the feedback
-    const body = feedbackSchema.parse(await request.json());
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
 
-    console.log(body);
+    if (authError || !user) {
+      console.error('Authentication error:', authError?.message);
+      return NextResponse.json(
+        { message: 'Unauthorized - Please sign in' },
+        { status: 401 }
+      );
+    }
+
+    console.log('User:', user);
+    console.log('Body:', await request.json());
 
     return NextResponse.json({
       success: true,
